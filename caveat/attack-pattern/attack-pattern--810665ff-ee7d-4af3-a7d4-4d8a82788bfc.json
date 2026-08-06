@@ -1,0 +1,38 @@
+{
+  "type": "attack-pattern",
+  "spec_version": "2.1",
+  "id": "attack-pattern--810665ff-ee7d-4af3-a7d4-4d8a82788bfc",
+  "created": "2026-08-06T10:00:00.000Z",
+  "modified": "2026-08-06T10:00:00.000Z",
+  "name": "Wizard Spider C2 Infrastructure on AWS",
+  "description": "Wizard Spider operates Command and Control infrastructure on Amazon Web Services using IPs 13.248.169.48 and 76.223.54.146. Domain backup.malicious.net resolves to both IPs. Associated with 10+ malware families including Emotet, Trickbot, and Ryuk ransomware. C2 servers respond on HTTP. OTX confirmed malicious activity. Attack chain: Emotet loader → Trickbot payload → SMB lateral movement → Ryuk ransomware deployment.",
+  "x_mitre_version": "1.0",
+  "x_mitre_is_subtechnique": false,
+  "x_mitre_domains": ["enterprise-attack"],
+  "x_mitre_platforms": ["AWS"],
+  "x_mitre_detection": "Monitor AWS VPC Flow Logs for traffic to 13.248.169.48 and 76.223.54.146. Enable AWS GuardDuty and alert on communication with known malicious IPs. Block outbound traffic to these IPs via AWS Network Firewall and Security Groups. Monitor Route53 DNS queries for backup.malicious.net. Use AWS WAF to block requests containing X-HTTP-Method-Override and X-Original-URL headers.",
+  "x_mitre_implementation": "Threat actor deploys Emotet via phishing. Emotet downloads Trickbot from C2 at 13.248.169.48 or 76.223.54.146. Trickbot performs SMB lateral movement. Ryuk ransomware encrypts systems. C2 communication uses HTTP over ports 80/443.",
+  "kill_chain_phases": [
+    {
+      "kill_chain_name": "mitre-attack",
+      "phase_name": "command-and-control"
+    }
+  ],
+  "external_references": [
+    {
+      "source_name": "OTX",
+      "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48",
+      "description": "OTX enrichment shows 10 malware samples and multiple APT associations"
+    },
+    {
+      "source_name": "COSA OMEGA",
+      "url": "https://otx.alienvault.com/pulse/6a5fb2214149623b23ea5a3d",
+      "description": "COSA OMEGA Threat Intelligence Report - Emotet/Trickbot/Wizard Spider"
+    },
+    {
+      "source_name": "AWS Abuse",
+      "url": "mailto:trustandsafety@support.aws.com",
+      "description": "AWS abuse contact for malicious infrastructure"
+    }
+  ]
+}
