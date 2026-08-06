@@ -1,0 +1,189 @@
+{
+  "type": "bundle",
+  "spec_version": "2.1",
+  "id": "bundle--2343ac8f-c990-46e7-9d34-55bf962bd209",
+  "objects": [
+    {
+      "type": "attack-pattern",
+      "spec_version": "2.1",
+      "id": "attack-pattern--858a8be3-30bb-4c5b-8171-13dce5ea6184",
+      "created": "2026-08-06T23:15:53+07:00",
+      "modified": "2026-08-06T23:15:53+07:00",
+      "name": "Wizard Spider C2 Infrastructure on AWS",
+      "description": "Wizard Spider C2 on AWS (13.248.169.48, 76.223.54.146, backup.malicious.net). OTX: 0 malware, 50 pulses. Status: active. Threat Level: CRITICAL.",
+      "x_mitre_version": "1.0",
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_domains": [
+        "enterprise-attack"
+      ],
+      "x_mitre_platforms": [
+        "AWS"
+      ],
+      "x_mitre_detection": "AWS GuardDuty, VPC Flow Logs, Route53 DNS Firewall, Security Groups.",
+      "x_caveat_iocs": {
+        "ips": [
+          "13.248.169.48",
+          "76.223.54.146"
+        ],
+        "domains": [
+          "backup.malicious.net"
+        ],
+        "last_validated": "2026-08-06T23:15:53+07:00",
+        "status": "active",
+        "threat_level": "CRITICAL",
+        "otx_malware": 0,
+        "otx_pulses": 50
+      },
+      "x_caveat_compliance": {
+        "thai_cyber_act": "\u0e1e.\u0e23.\u0e1a. \u0e44\u0e0b\u0e40\u0e1a\u0e2d\u0e23\u0e4c \u0e1e.\u0e28. 2562",
+        "compliance_ref": "TH-CMA-13.5-17-18",
+        "ncsa_ref": "UUID1-KH-SYNC-VERIFIED",
+        "thaicert": "thaicert@ncsa.or.th",
+        "operator": "Kriangkrai Khatsom",
+        "dna": "KH-SYNC-VERIFIED",
+        "system": "COSA OMEGA v115.9"
+      },
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "command-and-control"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "initial-access"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "lateral-movement"
+        }
+      ],
+      "external_references": [
+        {
+          "source_name": "OTX",
+          "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48"
+        },
+        {
+          "source_name": "COSA OMEGA",
+          "url": "https://otx.alienvault.com/pulse/6a5fb2214149623b23ea5a3d"
+        },
+        {
+          "source_name": "NCSA Thailand",
+          "url": "https://ncsa.or.th"
+        },
+        {
+          "source_name": "\u0e1e.\u0e23.\u0e1a. \u0e44\u0e0b\u0e40\u0e1a\u0e2d\u0e23\u0e4c 2562",
+          "url": "https://www.ncsa.or.th/knowledge/cyberlaw.html"
+        },
+        {
+          "source_name": "AWS Abuse",
+          "url": "mailto:trustandsafety@support.aws.com"
+        }
+      ]
+    },
+    {
+      "type": "course-of-action",
+      "spec_version": "2.1",
+      "id": "course-of-action--3a9c1403-7060-48f8-8181-2b0774754a5b",
+      "created": "2026-08-06T23:15:53+07:00",
+      "modified": "2026-08-06T23:15:53+07:00",
+      "name": "Wizard Spider C2 Mitigation - AWS + \u0e1e.\u0e23.\u0e1a. \u0e44\u0e0b\u0e40\u0e1a\u0e2d\u0e23\u0e4c",
+      "description": "Block Wizard Spider C2 using AWS native security. Compliance: \u0e1e.\u0e23.\u0e1a. \u0e44\u0e0b\u0e40\u0e1a\u0e2d\u0e23\u0e4c 2562 TH-CMA-13.5-17-18.",
+      "x_mitre_version": "1.0",
+      "x_mitre_deprecated": false,
+      "x_mitre_domains": [
+        "enterprise-attack"
+      ],
+      "x_mitre_platforms": [
+        "AWS"
+      ],
+      "x_caveat_compliance": {
+        "thai_cyber_act": true,
+        "report_to_thaicert": true,
+        "incident_response": "\u0e21\u0e32\u0e15\u0e23\u0e32 13 - \u0e2b\u0e19\u0e49\u0e32\u0e17\u0e35\u0e48\u0e2b\u0e19\u0e48\u0e27\u0e22\u0e07\u0e32\u0e19\u0e42\u0e04\u0e23\u0e07\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e1e\u0e37\u0e49\u0e19\u0e10\u0e32\u0e19\u0e2a\u0e33\u0e04\u0e31\u0e0d\u0e17\u0e32\u0e07\u0e2a\u0e32\u0e23\u0e2a\u0e19\u0e40\u0e17\u0e28",
+        "threat_notification": "\u0e21\u0e32\u0e15\u0e23\u0e32 14 - \u0e01\u0e32\u0e23\u0e41\u0e08\u0e49\u0e07\u0e40\u0e2b\u0e15\u0e38\u0e20\u0e31\u0e22\u0e04\u0e38\u0e01\u0e04\u0e32\u0e21\u0e17\u0e32\u0e07\u0e44\u0e0b\u0e40\u0e1a\u0e2d\u0e23\u0e4c",
+        "coordination": "\u0e21\u0e32\u0e15\u0e23\u0e32 15 - \u0e01\u0e32\u0e23\u0e1b\u0e23\u0e30\u0e2a\u0e32\u0e19\u0e07\u0e32\u0e19\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e2b\u0e19\u0e48\u0e27\u0e22\u0e07\u0e32\u0e19"
+      },
+      "external_references": [
+        {
+          "source_name": "OTX",
+          "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48"
+        },
+        {
+          "source_name": "AWS WAF",
+          "url": "https://docs.aws.amazon.com/waf/"
+        },
+        {
+          "source_name": "AWS GuardDuty",
+          "url": "https://docs.aws.amazon.com/guardduty/"
+        },
+        {
+          "source_name": "NCSA Thailand",
+          "url": "https://ncsa.or.th"
+        }
+      ],
+      "x_mitre_implementation": {
+        "AWS_WAF": {
+          "description": "Block C2 IPs via WAF",
+          "steps": [
+            "aws wafv2 create-ip-set --name Block-WizardSpider-C2 --scope REGIONAL --addresses 13.248.169.48/32 76.223.54.146/32 --ip-address-version IPV4"
+          ]
+        },
+        "AWS_GuardDuty": {
+          "description": "Enable threat detection",
+          "steps": [
+            "aws guardduty create-threat-intel-set --detector-id <id> --name WizardSpider-C2 --location s3://bucket/blocklist.txt --format TXT"
+          ]
+        },
+        "AWS_Network_Firewall": {
+          "description": "Block outbound C2 traffic",
+          "steps": [
+            "aws network-firewall create-rule-group --rule-group-name Block-WizardSpider-C2 --type STATEFUL --capacity 100"
+          ]
+        },
+        "Report_ThaiCERT": {
+          "description": "\u0e23\u0e32\u0e22\u0e07\u0e32\u0e19 ThaiCERT \u0e15\u0e32\u0e21 \u0e1e.\u0e23.\u0e1a. \u0e44\u0e0b\u0e40\u0e1a\u0e2d\u0e23\u0e4c 2562",
+          "steps": [
+            "Email: thaicert@ncsa.or.th",
+            "Ref: TH-CMA-13.5-17-18",
+            "Operator: Kriangkrai Khatsom",
+            "DNA: UUID1-KH-SYNC-VERIFIED"
+          ]
+        }
+      }
+    },
+    {
+      "type": "relationship",
+      "spec_version": "2.1",
+      "id": "relationship--9ef15a33-25da-4f2b-8642-1c73e1b1f875",
+      "created": "2026-08-06T23:15:53+07:00",
+      "modified": "2026-08-06T23:15:53+07:00",
+      "relationship_type": "mitigates",
+      "description": "AWS security controls mitigate Wizard Spider C2. Compliance: \u0e1e.\u0e23.\u0e1a. \u0e44\u0e0b\u0e40\u0e1a\u0e2d\u0e23\u0e4c 2562.",
+      "source_ref": "course-of-action--3a9c1403-7060-48f8-8181-2b0774754a5b",
+      "target_ref": "attack-pattern--858a8be3-30bb-4c5b-8171-13dce5ea6184",
+      "x_mitre_version": "1.0",
+      "x_mitre_deprecated": false
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--bff55aa5-831a-4372-9dcf-6510755f5384",
+      "created": "2026-08-06T23:15:53+07:00",
+      "modified": "2026-08-06T23:15:53+07:00",
+      "name": "Wizard Spider C2 IOCs",
+      "description": "C2: active | Threat: CRITICAL | Malware: 0 | OTX: 50 pulses",
+      "pattern": "[ipv4-addr:value = '13.248.169.48' OR ipv4-addr:value = '76.223.54.146' OR domain-name:value = 'backup.malicious.net']",
+      "pattern_type": "stix",
+      "valid_from": "2026-05-27T00:00:00.000Z",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "external_references": [
+        {
+          "source_name": "OTX",
+          "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48"
+        }
+      ]
+    }
+  ]
+}
