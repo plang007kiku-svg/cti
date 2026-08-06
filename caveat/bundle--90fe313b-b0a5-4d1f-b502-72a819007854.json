@@ -1,0 +1,43 @@
+{
+  "type": "bundle",
+  "spec_version": "2.1",
+  "id": "bundle--90fe313b-b0a5-4d1f-b502-72a819007854",
+  "objects": [
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--0d026ec9-c973-434d-ac95-0321967344c6",
+      "name": "Wizard Spider C2 on AWS",
+      "x_mitre_platforms": [
+        "AWS"
+      ],
+      "x_caveat_iocs": {
+        "ips": [
+          "13.248.169.48",
+          "76.223.54.146"
+        ],
+        "status": "active"
+      }
+    },
+    {
+      "type": "course-of-action",
+      "id": "course-of-action--7e7bbd73-6bdd-434c-96d9-0f5de3f9125a",
+      "name": "Block Wizard Spider C2"
+    },
+    {
+      "type": "relationship",
+      "id": "relationship--aa696c6d-0230-4ab2-a75c-b5b6caac6d38",
+      "relationship_type": "mitigates",
+      "source_ref": "course-of-action--7e7bbd73-6bdd-434c-96d9-0f5de3f9125a",
+      "target_ref": "attack-pattern--0d026ec9-c973-434d-ac95-0321967344c6"
+    },
+    {
+      "type": "indicator",
+      "id": "indicator--dac64ded-91fe-40da-92c8-725b273cc171",
+      "pattern": "[ipv4-addr:value = '13.248.169.48' OR ipv4-addr:value = '76.223.54.146' OR domain-name:value = 'backup.malicious.net']",
+      "pattern_type": "stix",
+      "indicator_types": [
+        "malicious-activity"
+      ]
+    }
+  ]
+}
