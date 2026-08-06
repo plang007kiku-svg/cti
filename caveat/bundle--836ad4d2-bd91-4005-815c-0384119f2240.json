@@ -1,0 +1,137 @@
+{
+  "type": "bundle",
+  "spec_version": "2.1",
+  "id": "bundle--836ad4d2-bd91-4005-815c-0384119f2240",
+  "objects": [
+    {
+      "type": "attack-pattern",
+      "spec_version": "2.1",
+      "id": "attack-pattern--afb7281b-fd7c-42a0-96d3-ed85335bcdec",
+      "created": "2026-08-06T23:02:22+07:00",
+      "modified": "2026-08-06T23:02:22+07:00",
+      "name": "Wizard Spider C2 Infrastructure on AWS",
+      "description": "Wizard Spider C2 on AWS. IPs: 13.248.169.48, 76.223.54.146. Domain: backup.malicious.net. Malware: 10 samples. OTX pulses: 50. Status: active.",
+      "x_mitre_version": "1.0",
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_domains": [
+        "enterprise-attack"
+      ],
+      "x_mitre_platforms": [
+        "AWS"
+      ],
+      "x_mitre_detection": "Monitor VPC Flow Logs, GuardDuty, Route53 DNS queries.",
+      "x_caveat_iocs": {
+        "ips": [
+          "13.248.169.48",
+          "76.223.54.146"
+        ],
+        "domains": [
+          "backup.malicious.net"
+        ],
+        "last_validated": "2026-08-06T23:02:22+07:00",
+        "validation_source": "OTX + direct HTTP",
+        "status": "active",
+        "otx_malware_samples": 10,
+        "otx_pulse_count": 50
+      },
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "command-and-control"
+        }
+      ],
+      "external_references": [
+        {
+          "source_name": "OTX",
+          "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48",
+          "description": "OTX: 10 malware samples, 50 pulses"
+        },
+        {
+          "source_name": "COSA OMEGA",
+          "url": "https://otx.alienvault.com/pulse/6a5fb2214149623b23ea5a3d",
+          "description": "COSA OMEGA Threat Intelligence"
+        },
+        {
+          "source_name": "AWS Abuse",
+          "url": "mailto:trustandsafety@support.aws.com",
+          "description": "AWS Trust & Safety"
+        }
+      ]
+    },
+    {
+      "type": "course-of-action",
+      "spec_version": "2.1",
+      "id": "course-of-action--a0a230fa-0f4f-405d-9579-f1278a9dc687",
+      "created": "2026-08-06T23:02:22+07:00",
+      "modified": "2026-08-06T23:02:22+07:00",
+      "name": "Wizard Spider C2 Mitigation on AWS",
+      "description": "Block C2 using AWS WAF, Network Firewall, GuardDuty, Route53 DNS Firewall, Security Groups.",
+      "x_mitre_version": "1.0",
+      "x_mitre_deprecated": false,
+      "x_mitre_domains": [
+        "enterprise-attack"
+      ],
+      "x_mitre_platforms": [
+        "AWS"
+      ],
+      "external_references": [
+        {
+          "source_name": "OTX",
+          "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48"
+        },
+        {
+          "source_name": "AWS WAF",
+          "url": "https://docs.aws.amazon.com/waf/"
+        }
+      ],
+      "x_mitre_implementation": {
+        "AWS_WAF": {
+          "description": "Block C2 IPs via WAF",
+          "steps": [
+            "aws wafv2 create-ip-set --name Block-WizardSpider-C2 --addresses 13.248.169.48/32 76.223.54.146/32 --ip-address-version IPV4"
+          ]
+        },
+        "AWS_GuardDuty": {
+          "description": "Threat detection",
+          "steps": [
+            "aws guardduty create-threat-intel-set --name WizardSpider-C2 --location s3://bucket/blocklist.txt --format TXT"
+          ]
+        }
+      }
+    },
+    {
+      "type": "relationship",
+      "spec_version": "2.1",
+      "id": "relationship--b789c8fe-48c2-4064-88bb-031f537c68b5",
+      "created": "2026-08-06T23:02:22+07:00",
+      "modified": "2026-08-06T23:02:22+07:00",
+      "relationship_type": "mitigates",
+      "description": "AWS security controls mitigate Wizard Spider C2 on 13.248.169.48, 76.223.54.146, backup.malicious.net.",
+      "source_ref": "course-of-action--a0a230fa-0f4f-405d-9579-f1278a9dc687",
+      "target_ref": "attack-pattern--afb7281b-fd7c-42a0-96d3-ed85335bcdec",
+      "x_mitre_version": "1.0",
+      "x_mitre_deprecated": false
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--9e2992b9-df51-46f1-8da1-d9931d7b3fa8",
+      "created": "2026-08-06T23:02:22+07:00",
+      "modified": "2026-08-06T23:02:22+07:00",
+      "name": "Wizard Spider C2 IOCs",
+      "description": "C2 Status: active | Malware: 10 samples | OTX Pulses: 50 | Validated: 2026-08-06T23:02:22+07:00",
+      "pattern": "[ipv4-addr:value = '13.248.169.48' OR ipv4-addr:value = '76.223.54.146' OR domain-name:value = 'backup.malicious.net']",
+      "pattern_type": "stix",
+      "valid_from": "2026-05-27T00:00:00.000Z",
+      "indicator_types": [
+        "malicious-activity"
+      ],
+      "external_references": [
+        {
+          "source_name": "OTX",
+          "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48"
+        }
+      ]
+    }
+  ]
+}
