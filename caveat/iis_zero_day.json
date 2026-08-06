@@ -1,0 +1,70 @@
+{
+  "type": "bundle",
+  "spec_version": "2.1",
+  "id": "bundle--ใส่-UUID-1",
+  "objects": [
+    {
+      "type": "attack-pattern",
+      "spec_version": "2.1",
+      "id": "attack-pattern--ใส่-UUID-2",
+      "created": "2026-05-27T08:00:00.000Z",
+      "modified": "2026-08-06T10:00:00.000Z",
+      "name": "IIS Header Injection Authentication Bypass",
+      "description": "Microsoft IIS 10.0 on Windows 11 25H2 improperly processes HTTP headers X-HTTP-Method-Override, X-Original-URL, and X-Forwarded-For. CVSS 9.8 Critical. Reported to Microsoft MSRC Case 124937 / CRM:0022143789. Patch available.",
+      "external_references": [
+        {"source_name": "CVE", "external_id": "CVE-2026-XXXXX"},
+        {"source_name": "MSRC Case", "external_id": "124937"},
+        {"source_name": "MSRC CRM", "external_id": "0022143789"},
+        {"source_name": "URL", "url": "https://otx.alienvault.com/pulse/6a5fb362514e17e5b1d28a95"}
+      ],
+      "x_mitre_domains": ["enterprise-attack"],
+      "x_mitre_platforms": ["Windows"],
+      "x_mitre_detection": "Monitor IIS logs for 405→200 anomalies. Alert on X-HTTP-Method-Override, X-Original-URL, X-Forwarded-For headers."
+    },
+    {
+      "type": "intrusion-set",
+      "spec_version": "2.1",
+      "id": "intrusion-set--ใส่-UUID-3",
+      "created": "2026-08-06T10:00:00.000Z",
+      "modified": "2026-08-06T10:00:00.000Z",
+      "name": "Wizard Spider",
+      "description": "Russia-based financially motivated threat group. Attack chain: Emotet → Trickbot → SMB lateral movement → Ryuk ransomware. Exploits CVE-2026-XXXXX for initial access. COSA OMEGA confirmed.",
+      "aliases": ["Wizard Spider", "UNC1878", "Trickbot Group"],
+      "x_mitre_domains": ["enterprise-attack"]
+    },
+    {
+      "type": "relationship",
+      "spec_version": "2.1",
+      "id": "relationship--ใส่-UUID-4",
+      "created": "2026-08-06T10:00:00.000Z",
+      "modified": "2026-08-06T10:00:00.000Z",
+      "relationship_type": "uses",
+      "description": "Wizard Spider exploits CVE-2026-XXXXX for initial access, deploying Emotet loader, Trickbot payload, and Ryuk ransomware.",
+      "source_ref": "intrusion-set--ใส่-UUID-3",
+      "target_ref": "attack-pattern--ใส่-UUID-2"
+    },
+    {
+      "type": "course-of-action",
+      "spec_version": "2.1",
+      "id": "course-of-action--ใส่-UUID-5",
+      "created": "2026-08-06T10:00:00.000Z",
+      "modified": "2026-08-06T10:00:00.000Z",
+      "name": "CVE-2026-XXXXX Mitigation",
+      "description": "Apply Microsoft patch. Block X-HTTP-Method-Override, X-Original-URL, X-Forwarded-For via IIS Request Filtering and URL Rewrite. Deploy WAF rules.",
+      "x_mitre_domains": ["enterprise-attack"]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ใส่-UUID-6",
+      "created": "2026-08-06T10:00:00.000Z",
+      "modified": "2026-08-06T10:00:00.000Z",
+      "name": "Wizard Spider C2 Infrastructure",
+      "description": "Active C2 infrastructure as of 2026-08-06.",
+      "pattern": "[ipv4-addr:value = '13.248.169.48' OR ipv4-addr:value = '76.223.54.146' OR domain-name:value = 'backup.malicious.net']",
+      "pattern_type": "stix",
+      "valid_from": "2026-05-27T00:00:00.000Z",
+      "indicator_types": ["malicious-activity"]
+    }
+  ]
+}
