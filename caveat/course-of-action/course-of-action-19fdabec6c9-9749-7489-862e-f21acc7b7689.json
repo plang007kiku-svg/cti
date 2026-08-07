@@ -1,0 +1,32 @@
+{
+  "type": "course-of-action",
+  "spec_version": "2.1",
+  "id": "course-of-action--19fdabec6c9-9749-7489-862e-f21acc7b7689",
+  "created": "2026-08-07T00:00:00.000Z",
+  "modified": "2026-08-07T00:00:00.000Z",
+  "name": "Wizard Spider C2 Infrastructure Blocking on AWS",
+  "description": "Block Wizard Spider C2 using AWS WAF, Network Firewall, GuardDuty, Route53 DNS Firewall, Security Groups.",
+  "x_mitre_version": "1.0",
+  "x_mitre_deprecated": false,
+  "x_mitre_domains": ["enterprise-attack"],
+  "x_mitre_platforms": ["AWS"],
+  "external_references": [
+    {"source_name": "AWS WAF", "url": "https://docs.aws.amazon.com/waf/"},
+    {"source_name": "AWS GuardDuty", "url": "https://docs.aws.amazon.com/guardduty/"},
+    {"source_name": "OTX", "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48"}
+  ],
+  "x_mitre_implementation": {
+    "AWS_WAF": {
+      "description": "Block C2 IPs via WAF",
+      "steps": [
+        "aws wafv2 create-ip-set --name Block-WizardSpider-C2 --scope REGIONAL --addresses 13.248.169.48/32 76.223.54.146/32 --ip-address-version IPV4"
+      ]
+    },
+    "AWS_GuardDuty": {
+      "description": "Enable threat detection",
+      "steps": [
+        "aws guardduty create-threat-intel-set --detector-id <id> --name WizardSpider-C2 --location s3://bucket/blocklist.txt --format TXT"
+      ]
+    }
+  }
+}
