@@ -1,0 +1,22 @@
+{
+  "type": "attack-pattern",
+  "spec_version": "2.1",
+  "id": "attack-pattern--19fdabec56b-1621-7582-8759-ed30cdc5ccac",
+  "created": "2026-08-07T00:00:00.000Z",
+  "modified": "2026-08-07T00:00:00.000Z",
+  "name": "Wizard Spider C2 Infrastructure on AWS",
+  "description": "Wizard Spider C2 on AWS (13.248.169.48, 76.223.54.146, backup.malicious.net). OTX: 10 malware samples. COSA OMEGA verified. Attack chain: Emotet → Trickbot → Ryuk ransomware.",
+  "x_mitre_version": "1.0",
+  "x_mitre_is_subtechnique": false,
+  "x_mitre_domains": ["enterprise-attack"],
+  "x_mitre_platforms": ["AWS"],
+  "x_mitre_detection": "Monitor VPC Flow Logs, GuardDuty, Route53 DNS Firewall, Security Groups. Block outbound to 13.248.169.48/32, 76.223.54.146/32.",
+  "kill_chain_phases": [
+    {"kill_chain_name": "mitre-attack", "phase_name": "command-and-control"}
+  ],
+  "external_references": [
+    {"source_name": "OTX", "url": "https://otx.alienvault.com/indicator/ip/13.248.169.48", "description": "10 malware samples"},
+    {"source_name": "COSA OMEGA", "url": "https://otx.alienvault.com/pulse/6a5fb2214149623b23ea5a3d"},
+    {"source_name": "MSRC Case 124937", "url": "https://portal.msrc.microsoft.com/"}
+  ]
+}
