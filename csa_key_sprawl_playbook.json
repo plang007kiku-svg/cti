@@ -1,0 +1,125 @@
+{
+  "name": "Key Sprawl Management Playbook",
+  "version": "1.0",
+  "author": "Kriangkai Khatsom - CSA Reviewer",
+  "framework": "CSA CCM v4.1 + NIST SP 800-57",
+  "created": "2026-08-17T02:12:47.701988",
+  "phases": [
+    {
+      "phase": 1,
+      "name": "Discovery & Inventory",
+      "objective": "ค้นหา keys ทั้งหมดที่กระจัดกระจาย",
+      "steps": [
+        "สแกน cloud accounts (AWS/Azure/GCP)",
+        "สแกน code repositories (GitHub/GitLab)",
+        "สแกน CI/CD pipelines",
+        "สแกน SaaS platforms",
+        "สแกน environment variables",
+        "สแกน shell history",
+        "สร้าง inventory รวม"
+      ],
+      "tools": [
+        "Gitleaks",
+        "TruffleHog",
+        "GitGuardian",
+        "OMEGA Scanner"
+      ],
+      "output": "csa_key_inventory.json",
+      "time": "< 1 ชั่วโมง"
+    },
+    {
+      "phase": 2,
+      "name": "Consolidation & Centralization",
+      "objective": "รวม keys ทั้งหมดไว้ที่เดียว",
+      "steps": [
+        "ย้าย keys ทั้งหมดไปไว้ใน vault",
+        "ใช้ KMS สำหรับ cloud keys",
+        "กำหนด owner ทุก key",
+        "ติด tag: environment, classification, expiration",
+        "ลบ keys ที่ไม่ใช้แล้ว"
+      ],
+      "tools": [
+        "HashiCorp Vault",
+        "AWS KMS",
+        "Azure Key Vault"
+      ],
+      "output": "centralized_vault",
+      "time": "< 1 วัน"
+    },
+    {
+      "phase": 3,
+      "name": "Lifecycle & Rotation",
+      "objective": "จัดการวงจรชีวิต keys อัตโนมัติ",
+      "steps": [
+        "ตั้ง rotation policy (30/60/90 วัน)",
+        "ใช้ short-lived credentials",
+        "ปิดใช้งาน keys ที่ไม่ได้ใช้",
+        "ทำลาย keys ที่หมดอายุ",
+        "บันทึกทุกการเปลี่ยนแปลง"
+      ],
+      "tools": [
+        "Vault Auto-Rotation",
+        "Cloud KMS"
+      ],
+      "output": "rotation_schedule",
+      "time": "ต่อเนื่อง"
+    },
+    {
+      "phase": 4,
+      "name": "Monitoring & Detection",
+      "objective": "เฝ้าระวัง key misuse",
+      "steps": [
+        "ติดตาม key usage logs",
+        "ตรวจจับ access จาก IP แปลก",
+        "ตรวจจับ key ที่ไม่เคย rotate",
+        "ตรวจจับ key ใน GitHub repos",
+        "แจ้งเตือนอัตโนมัติ"
+      ],
+      "tools": [
+        "SIEM",
+        "OMEGA AI",
+        "CloudTrail"
+      ],
+      "output": "alerts",
+      "time": "real-time"
+    },
+    {
+      "phase": 5,
+      "name": "Incident Response",
+      "objective": "ตอบสนองเมื่อ key รั่วไหล",
+      "steps": [
+        "1. Detect: พบ key ที่ leaked",
+        "2. Confirm: ตรวจสอบว่า key ยัง active",
+        "3. Contain: revoke ทันที",
+        "4. Assess: ตรวจ blast radius",
+        "5. Hunt: หา persistence",
+        "6. Remediate: แก้ไขระบบ",
+        "7. Report: บันทึก timeline"
+      ],
+      "tools": [
+        "OMEGA AI",
+        "Playbook Scripts"
+      ],
+      "output": "incident_report",
+      "time": "< 15 นาที"
+    },
+    {
+      "phase": 6,
+      "name": "Governance & Compliance",
+      "objective": "รักษามาตรฐานระยะยาว",
+      "steps": [
+        "Quarterly key reviews",
+        "ตรวจ rotation compliance",
+        "ตรวจ orphaned keys",
+        "อัปเดต policy",
+        "รายงานผู้บริหาร"
+      ],
+      "tools": [
+        "ServiceNow GRC",
+        "Jira"
+      ],
+      "output": "compliance_report",
+      "time": "ทุกไตรมาส"
+    }
+  ]
+}
